@@ -1,0 +1,44 @@
+<h2 class="student-list-header">Students List</h2>
+
+<table class="student-list-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>AVG</th>
+      <th>Year</th>
+      <th>Study Days</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of studentsList">
+      <td>{{ student.id }}</td>
+      <td>{{ student.firstName }} {{ student.lastName }}</td>
+      <td>{{ student.address }}</td>
+      <td>{{ student.phone | phone }}</td>
+      <td [ngClass]="{ 'inactive': !student.active}">
+        {{ student.active ? 'Active' : 'Inactive' }}
+      </td>
+      <td [ngClass]="{ 'excellent': student.gradePointAverage >= 90 }">
+        {{ student.gradePointAverage }}
+      </td>
+      <td>{{ student.schoolYear }}</td>
+      <td [ngSwitch]="student.schoolYear">
+        <ng-container *ngSwitchCase=1>200</ng-container>
+        <ng-container *ngSwitchCase=2>400</ng-container>
+        <ng-container *ngSwitchCase=3>600</ng-container>
+      </td>
+      <td>
+        <button class="nice-button" (click)="deleteStudent(student)">Delete Student</button>
+      </td>
+      <td>
+        <a [routerLink]="['/student-details', student.id]">Edit Student</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

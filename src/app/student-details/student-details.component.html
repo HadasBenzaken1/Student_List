@@ -1,0 +1,58 @@
+<div *ngIf="student" class="student-details"><div class="student-details">
+  <form [formGroup]="studentForm" class="student-form">
+    <h3>Student Details</h3>
+    <div class="form-field">
+      <label>ID: {{ student.id }}</label>    
+    </div>
+    <div class="form-field">
+      <label>First Name:</label>
+      <input type="text" [(ngModel)]="student.firstName" formControlName="firstName" />
+      <div class="error-message" *ngIf="studentForm.get('firstName')?.invalid && (studentForm.get('firstName')?.dirty || studentForm.get('firstName')?.touched)">
+        <div *ngIf="studentForm.get('firstName')?.errors?.['required']">First Name is required</div>
+        <div *ngIf="studentForm.get('firstName')?.errors?.['minlength']">First Name should have at least 2 characters</div>
+        <div *ngIf="studentForm.get('firstName')?.errors?.['maxlength']">First Name should have at most 50 characters</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Last Name:</label>
+      <input type="text" [(ngModel)]="student.lastName" formControlName="lastName" />
+      <div class="error-message" *ngIf="studentForm.get('lastName')?.invalid && (studentForm.get('lastName')?.dirty || studentForm.get('lastName')?.touched)">
+        <div *ngIf="studentForm.get('lastName')?.errors?.['required']">Last Name is required.</div>
+        <div *ngIf="studentForm.get('lastName')?.errors?.['minlength']">Last Name should have at least 2 characters</div>
+        <div *ngIf="studentForm.get('lastName')?.errors?.['maxlength']">Last Name should have at most 50 characters</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Address:</label>
+      <input type="text" [(ngModel)]="student.address" formControlName="address" />
+      <div class="error-message" *ngIf="studentForm.get('address')?.invalid && (studentForm.get('address')?.dirty || studentForm.get('address')?.touched)">
+        <div [ngClass]="{ 'error': studentForm.get('address')?.errors?.['required'] }">Address is required</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Phone:</label>
+      <input type="text" [(ngModel)]="student.phone" formControlName="phone" />
+      <div class="error-message" *ngIf="studentForm.get('phone')?.invalid && (studentForm.get('phone')?.dirty || studentForm.get('phone')?.touched)">
+        <div *ngIf="studentForm.get('phone')?.errors?.['pattern']">Phone number must contain 10 digits</div>
+          <div *ngIf="studentForm.get('phone')?.errors?.['required']">Phone number required</div>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>School Year:</label>
+      <div class="radio-group">
+        <label>
+          <input [(ngModel)]="student.schoolYear" formControlName="schoolYear" type="radio" name="schoolYear" value="1" /> Year 1
+        </label>
+        <label>
+          <input [(ngModel)]="student.schoolYear" formControlName="schoolYear" type="radio" name="schoolYear" value="2" /> Year 2
+        </label>
+        <label>
+          <input [(ngModel)]="student.schoolYear" formControlName="schoolYear" type="radio" name="schoolYear" value="3" /> Year 3
+        </label>
+      </div>
+    </div>
+    <button [disabled]="studentForm.invalid" (click)="onSave()">Save</button>
+  </form>
+</div>
+</div>
+
